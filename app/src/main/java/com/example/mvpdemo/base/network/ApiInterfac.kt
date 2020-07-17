@@ -12,7 +12,7 @@ class ApiInterfac {
     interface ApiInterface {
 
         @GET("statistics")
-        fun getStatistics() : Call<StatisticsResponse>
+        fun getStatistics(@Query("country")country: String?=null) : Observable<StatisticsResponse>
 
         @GET("countries")
         fun getCountries(@Query("search")searchText:String?=null) : Observable<CountriesResponse>

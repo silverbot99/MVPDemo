@@ -2,9 +2,15 @@ package com.example.mvpdemo.screen.statistics.presentation
 
 import com.example.mvpdemo.base.network.ApiInterfac
 import com.example.mvpdemo.base.network.CustomApiClient
+import com.example.mvpdemo.base.network.response.CountriesResponse
 import com.example.mvpdemo.base.network.response.StatisticsResponse
 import com.example.mvpdemo.screen.statistics.domain.StatisticsMapper
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,32 +23,31 @@ class StatisticsPresenter(val view: StatisticsContract.StatisticsView): Statisti
     override fun getData() {
         view.showLoading()
         apiService?.let { it ->
-            val call = it.getStatistics()
-            call.enqueue(object : Callback<StatisticsResponse>{
-                override fun onResponse(
-                    call: Call<StatisticsResponse>,
-                    response: Response<StatisticsResponse>
-                ) {
-                    if (response.isSuccessful){
-                        val statistics: StatisticsResponse? = response.body()
-                        statistics?.let {
-                            if (!statistics.response.isNullOrEmpty()){
-                                view.showData(StatisticsMapper().map(statistics))
-                                view.hideLoading()
-                            }
-                            else{
-                                view.showError(response.message())
-                            }
-                        }
-                    }
-                    else {
-                        view.hideLoading()
-                        view.showError(response.message())
-                    }
-                }
-                override fun onFailure(call: Call<StatisticsResponse>, t: Throwable) {
+            val call: Observable<StatisticsResponse> =
+                apiService.getStatistics()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+
+
+            call.subscribeWith(object : Observer<StatisticsResponse> {
+                override fun onComplete() {
+                    view.showToast("Finished")
                     view.hideLoading()
-                    view.showError(t.toString())
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: StatisticsResponse) {
+                    if (!t.response.isNullOrEmpty()) {
+                        view.showData(StatisticsMapper().map(t))
+                    }
+
+                }
+
+                override fun onError(e: Throwable) {
+                    view.showError(e.toString())
                 }
 
             })

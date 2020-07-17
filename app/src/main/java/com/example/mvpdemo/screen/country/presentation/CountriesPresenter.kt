@@ -1,11 +1,15 @@
 package com.example.mvpdemo.screen.country.presentation
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.util.Log
+import com.example.mvpdemo.MainActivity
 import com.example.mvpdemo.base.network.ApiInterfac
 import com.example.mvpdemo.base.network.CustomApiClient
 import com.example.mvpdemo.base.network.response.CountriesResponse
 import com.example.mvpdemo.screen.country.presentation.CountriesContract.CountriesView
+import com.example.mvpdemo.screen.country_detail.CountryDetailActivity
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -53,9 +57,5 @@ class CountriesPresenter(val view: CountriesView): CountriesContract.Presenter()
         else{
             view.showToast("Null client")
         }
-    }
-
-    override fun goToCountryDetailInfoFragment():List<String> {
-        return listOf("q","f")
     }
 }

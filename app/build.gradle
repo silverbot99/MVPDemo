@@ -51,6 +51,9 @@ dependencies {
     //ui
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
 
+    //Chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 
 
     implementation fileTree(dir: "libs", include: ["*.jar"])

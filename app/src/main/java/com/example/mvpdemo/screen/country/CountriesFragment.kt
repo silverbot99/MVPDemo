@@ -1,6 +1,6 @@
 package com.example.mvpdemo.screen.country
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +15,7 @@ import com.example.mvpdemo.R
 import com.example.mvpdemo.screen.country.presentation.CountriesContract
 import com.example.mvpdemo.screen.country.presentation.CountriesPresenter
 import com.example.mvpdemo.screen.country.presentation.renderer.CountriesAdapter
-import com.roger.catloadinglibrary.CatLoadingView
+import com.example.mvpdemo.screen.country_detail.CountryDetailActivity
 import kotlinx.android.synthetic.main.layout_countries.*
 
 
@@ -23,10 +23,10 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: CountriesAdapter
     var listData: MutableList<String> = mutableListOf()
-    var presenter=
-        CountriesPresenter(
-            this
-        )
+    var presenter= CountriesPresenter(
+                this
+            )
+
     //var catLoading: CatLoadingView = CatLoadingView()
 
     override fun onCreateView(
@@ -62,9 +62,7 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
             }
             return true
         }
-
     }
-
 
     override fun showLoading() {
         activity?.let {
@@ -96,6 +94,10 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
             )
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
+    }
+    fun goToCountryDetailInfoFragment(){
+        val intent = Intent (activity, CountryDetailActivity::class.java)
+        activity?.startActivity(intent)
     }
 
 

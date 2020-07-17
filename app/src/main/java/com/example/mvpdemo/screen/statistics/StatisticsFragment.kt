@@ -73,7 +73,7 @@ class StatisticsFragment: Fragment(),
     private fun checkPermission() {
         if (context!=null){
             if (isNetworkAvailable(requireContext()) || isInternetAvailable()){
-                presenter.getData()
+//                presenter.getData()
             }
             else{
                 showToast("Please turn on your network!")
