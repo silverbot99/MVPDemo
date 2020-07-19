@@ -12,22 +12,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvpdemo.MainActivity
 import com.example.mvpdemo.R
+import com.example.mvpdemo.base.function.pass_data.OnNotifyData
 import com.example.mvpdemo.screen.country.presentation.CountriesContract
 import com.example.mvpdemo.screen.country.presentation.CountriesPresenter
-import com.example.mvpdemo.screen.country.presentation.renderer.CountriesAdapter
+import com.example.mvpdemo.screen.country.presentation.model.ItemCountryViewModel
+import com.example.mvpdemo.screen.country.presentation.renderer.CountriesViewRenderer
 import com.example.mvpdemo.screen.country_detail.CountryDetailActivity
+import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.android.synthetic.main.layout_countries.*
+import kotlinx.android.synthetic.main.layout_countries.progressBar
 
 
 class CountriesFragment: Fragment(), CountriesContract.CountriesView {
     lateinit var recyclerView: RecyclerView
-    lateinit var adapter: CountriesAdapter
-    var listData: MutableList<String> = mutableListOf()
+    val adapter: RendererRecyclerViewAdapter = RendererRecyclerViewAdapter()
+    var listData: MutableList<ViewModel> = mutableListOf()
     var presenter= CountriesPresenter(
                 this
             )
-
-    //var catLoading: CatLoadingView = CatLoadingView()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,12 +44,23 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.rvCountry)
         recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter.registerRenderer(CountriesViewRenderer(ItemCountryViewModel::class.java, onNotifyData))
+        recyclerView.adapter = adapter
         presenter.getData("")
-        initSearchView()
+        initView()
     }
 
-    private fun initSearchView() {
+    val onNotifyData = object :OnNotifyData{
+        override fun onNotify(model: ViewModel) {
+            if (model is ItemCountryViewModel){
+                goToCountryDetailInfoFragment(model.name)
+            }
+        }
+    }
+
+    private fun initView() {
         svCountry.setOnQueryTextListener(onQueryTextChange)
+        progressBar.isIndeterminate = true
     }
     private val onQueryTextChange: SearchView.OnQueryTextListener= object :SearchView.OnQueryTextListener{
         override fun onQueryTextSubmit(query: String?): Boolean {
@@ -65,13 +79,13 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
     }
 
     override fun showLoading() {
-        activity?.let {
-            MainActivity.catLoadingView.show(it.supportFragmentManager,"")
-        }
+        rvCountry.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        MainActivity.catLoadingView.dismiss()
+        rvCountry.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
     }
 
     override fun showToast(msg: String) {
@@ -82,21 +96,18 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
         Toast.makeText(context,error, Toast.LENGTH_LONG).show()
     }
 
-//    override fun getData(data: String) {
-//    }
-
     override fun showData(list: List<String>) {
         listData.clear()
-        listData.addAll(list)
-        adapter =
-            CountriesAdapter(
-                listData
-            )
-        recyclerView.adapter = adapter
+        list.forEachIndexed { index, s ->
+            listData.add(ItemCountryViewModel(index,s))
+        }
+        adapter.setItems(listData)
         adapter.notifyDataSetChanged()
     }
-    fun goToCountryDetailInfoFragment(){
+
+    fun goToCountryDetailInfoFragment(country:String){
         val intent = Intent (activity, CountryDetailActivity::class.java)
+        intent.putExtra("country",country)
         activity?.startActivity(intent)
     }
 

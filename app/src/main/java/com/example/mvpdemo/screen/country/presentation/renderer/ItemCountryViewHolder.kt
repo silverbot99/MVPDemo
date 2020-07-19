@@ -6,6 +6,6 @@ import com.example.mvpdemo.R
 import com.github.vivchar.rendererrecyclerviewadapter.ViewHolder
 
 
-class ItemCountryViewHolder(view: View) : ViewHolder(view) {
+class ItemCountryViewHolder(var view: View) : ViewHolder(view) {
     var mCountry = view.findViewById<TextView>(R.id.tvCountry)
 }

@@ -1,4 +1,4 @@
-package com.example.mvpdemo.base.values.recycler_view
+package com.example.mvpdemo.base.function.recycler_view
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

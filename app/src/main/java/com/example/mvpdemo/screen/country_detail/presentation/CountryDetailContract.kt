@@ -13,6 +13,5 @@ interface CountryDetailContract {
     }
     abstract class Presenter{
         abstract fun getData(queryCountry :String)
-        abstract fun goToCountryDetailInfoFragment()
     }
 }

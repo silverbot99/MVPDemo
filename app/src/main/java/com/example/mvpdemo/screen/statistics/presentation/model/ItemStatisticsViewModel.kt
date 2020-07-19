@@ -17,7 +17,7 @@ class ItemStatisticsViewModel (
         var onePop : String? = null,
         var active : Int? = null,
         var critical : Int? = null,
-        var new : String? = null,
+        var new : Int? = null,
         var recovered : Int? = null,
         var total : Int? = null
     )

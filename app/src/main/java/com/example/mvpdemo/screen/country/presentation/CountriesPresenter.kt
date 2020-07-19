@@ -22,6 +22,7 @@ class CountriesPresenter(val view: CountriesView): CountriesContract.Presenter()
     val client = CustomApiClient.getClient()
     @SuppressLint("CheckResult")
     override fun getData(queryCountry :String?) {
+        view.showLoading()
         if (client!=null) {
             val apiService = client.create(ApiInterfac.ApiInterface::class.java)
             val countryObserver:Observable<CountriesResponse> = if (queryCountry=="null"|| queryCountry=="") {apiService.getCountries()
@@ -36,6 +37,7 @@ class CountriesPresenter(val view: CountriesView): CountriesContract.Presenter()
             countryObserver.subscribeWith(object :Observer<CountriesResponse>{
                 override fun onComplete() {
                     view.showToast("Finished")
+                    view.hideLoading()
                 }
 
                 override fun onSubscribe(d: Disposable) {
@@ -50,6 +52,7 @@ class CountriesPresenter(val view: CountriesView): CountriesContract.Presenter()
 
                 override fun onError(e: Throwable) {
                     view.showError(e.toString())
+                    view.hideLoading()
                 }
 
             })

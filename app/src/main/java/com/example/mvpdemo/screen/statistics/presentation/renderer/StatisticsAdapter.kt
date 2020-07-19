@@ -21,7 +21,7 @@ class StatisticsAdapter(private val list: MutableList<ItemStatisticsViewModel>) 
 
     override fun onBindViewHolder(holder: ItemStatisticsViewHolder, position: Int) {
         holder.mCountry.text = list[position].country
-        holder.mNewCases.text = list[position].cases.new
+        holder.mNewCases.text = list[position].cases.new.toString()
         holder.mDeaths.text = list[position].deaths.total.toString()
         holder.mTotal.text = list[position].cases.total.toString()
 

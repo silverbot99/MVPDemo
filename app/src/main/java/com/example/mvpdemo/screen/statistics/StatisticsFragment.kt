@@ -12,14 +12,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mvpdemo.MainActivity
 import com.example.mvpdemo.R
-import com.example.mvpdemo.screen.statistics.presentation.renderer.StatisticsAdapter
 import com.example.mvpdemo.screen.statistics.presentation.StatisticsContract
 import com.example.mvpdemo.screen.statistics.presentation.StatisticsPresenter
 import com.example.mvpdemo.screen.statistics.presentation.model.ItemStatisticsViewModel
+import com.example.mvpdemo.screen.statistics.presentation.renderer.StatisticsAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
-import com.roger.catloadinglibrary.CatLoadingView
+import kotlinx.android.synthetic.main.layout_statistics.*
 import java.net.InetAddress
 import java.net.UnknownHostException
 
@@ -46,11 +45,17 @@ class StatisticsFragment: Fragment(),
         checkPermission()
         initView(view)
     }
+
+//    private fun initProgressBar() {
+//        val doubleBounce: Sprite = DoubleBounce()
+//        progressBar.indeterminateDrawable = doubleBounce
+//    }
+
     lateinit var tvTitle : TextView
     private fun initView(view: View) {
         recyclerView = view.findViewById(R.id.rvStatics)
         tvTitle= view.findViewById<TextView>(R.id.tvTitle)
-
+        progressBar.isIndeterminate = true;
     }
 
 
@@ -73,7 +78,7 @@ class StatisticsFragment: Fragment(),
     private fun checkPermission() {
         if (context!=null){
             if (isNetworkAvailable(requireContext()) || isInternetAvailable()){
-//                presenter.getData()
+                presenter.getData()
             }
             else{
                 showToast("Please turn on your network!")
@@ -82,13 +87,17 @@ class StatisticsFragment: Fragment(),
     }
 
     override fun showLoading() {
-        activity?.let {
-            MainActivity.catLoadingView.show(it.supportFragmentManager,"")
-        }
+//        activity?.let {
+//            MainActivity.catLoadingView.show(it.supportFragmentManager,"")
+//        }
+        rvStatics.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        MainActivity.catLoadingView.dismiss()
+//        MainActivity.catLoadingView.dismiss()
+        rvStatics.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
     }
 
     override fun showToast(msg: String) {

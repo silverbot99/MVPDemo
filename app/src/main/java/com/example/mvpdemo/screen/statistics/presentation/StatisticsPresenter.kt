@@ -22,35 +22,37 @@ class StatisticsPresenter(val view: StatisticsContract.StatisticsView): Statisti
     var compositeDisposable = CompositeDisposable()
     override fun getData() {
         view.showLoading()
-        apiService?.let { it ->
-            val call: Observable<StatisticsResponse> =
-                apiService.getStatistics()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
+        if(apiService!=null) {
+            apiService.let { it ->
+                val call: Observable<StatisticsResponse> =
+                    apiService.getStatistics()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
 
 
-            call.subscribeWith(object : Observer<StatisticsResponse> {
-                override fun onComplete() {
-                    view.showToast("Finished")
-                    view.hideLoading()
-                }
-
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(t: StatisticsResponse) {
-                    if (!t.response.isNullOrEmpty()) {
-                        view.showData(StatisticsMapper().map(t))
+                call.subscribeWith(object : Observer<StatisticsResponse> {
+                    override fun onComplete() {
+                        view.showToast("Finished")
+                        view.hideLoading()
                     }
 
-                }
+                    override fun onSubscribe(d: Disposable) {
 
-                override fun onError(e: Throwable) {
-                    view.showError(e.toString())
-                }
+                    }
 
-            })
+                    override fun onNext(t: StatisticsResponse) {
+                        if (!t.response.isNullOrEmpty()) {
+                            view.showData(StatisticsMapper().map(t))
+                        }
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                        view.showError(e.toString())
+                    }
+
+                })
+            }
         }
 
     }
@@ -62,4 +64,5 @@ class StatisticsPresenter(val view: StatisticsContract.StatisticsView): Statisti
 
         }
     }
+
 }

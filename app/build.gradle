@@ -47,14 +47,14 @@ dependencies {
 
     //Loading
     implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.5'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     //ui
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
 
     //Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
-
+    implementation 'com.robinhood.spark:spark:1.2.0'
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

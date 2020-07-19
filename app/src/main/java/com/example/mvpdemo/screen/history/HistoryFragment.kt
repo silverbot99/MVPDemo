@@ -35,7 +35,7 @@ class HistoryFragment: Fragment() {
     private var listInitData = mutableListOf<Project>(
         Project("Sunrise City",226f,146f,226f),
         Project("Adora Garden",50f,250f,300f),
-        Project("Royal City",225f,115f,160f))
+        Project("Royal City",225f,115f,160f)).reversed()
 
     private val colorArray = arrayListOf(Color.LTGRAY, Color.GRAY, Color.CYAN)
 
@@ -112,13 +112,24 @@ class HistoryFragment: Fragment() {
         xAxis.valueFormatter = IndexAxisValueFormatter(days)
         xAxis.setCenterAxisLabels(true)
         chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.granularity = 0.5f
-        xAxis.isGranularityEnabled = true
-        chart.isDragEnabled = true
-        chart.setVisibleXRangeMaximum(3f)
+//        xAxis.granularity = 0.5f
+//        xAxis.isGranularityEnabled = false
+        chart.isDragEnabled = false
+        chart.setScaleEnabled(false);
+//        chart.axisRight.setDrawGridLines(false);
+        chart.xAxis.setDrawGridLines(false);
+        chart.axisLeft.setDrawAxisLine(false)
+        chart.axisRight.setDrawAxisLine(false)
+        chart.axisLeft.gridColor = Color.parseColor("#f3f3f8")
+        chart.axisLeft.setDrawLabels(false);
+        chart.axisRight.setDrawLabels(false);
+        chart.description.isEnabled = false;
+        chart.legend.isEnabled = false;
+
+//        chart.setVisibleXRangeMaximum(3f)
         val barSpace = 0.00f
-        val groupSpace = 0.32f
-        data.barWidth = 0.08f
+        val groupSpace = 0.55f
+        data.barWidth = 0.15f
         xAxis.axisMinimum = 0f
         xAxis.axisMaximum = 0 + chart.barData.getGroupWidth(groupSpace, barSpace)*listInitData.size
         chart.groupBars(0f,groupSpace, barSpace)
