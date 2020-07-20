@@ -29,41 +29,26 @@ class HistoryFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val barChart = view.findViewById<HorizontalBarChart>(R.id.hBarChart)
-        //initBarChart(barChart)
         initMutilBarChar(barChart)
     }
     private var listInitData = mutableListOf<Project>(
         Project("Sunrise City",226f,146f,226f),
         Project("Adora Garden",50f,250f,300f),
-        Project("Royal City",225f,115f,160f)).reversed()
+        Project("Royal City",225f,115f,160f),
+        Project("Luxury Palace",100f,215f,350f)).reversed()
 
     private val colorArray = arrayListOf(Color.LTGRAY, Color.GRAY, Color.CYAN)
 
     private fun barSelling(): ArrayList<BarEntry> {
         val barEntries = arrayListOf<BarEntry>()
-//        barEntries.add(BarEntry(1f,2000f))
-//        barEntries.add(BarEntry(2f,791f))
-//        barEntries.add(BarEntry(3f,630f))
-//        barEntries.add(BarEntry(4f,782f))
-//        barEntries.add(BarEntry(5f,2714.54f))
-//        barEntries.add(BarEntry(6f,500f))
-//        barEntries.add(BarEntry(7f,2173.36f))
         listInitData.forEachIndexed { index, project ->
             barEntries.add(BarEntry((index+1).toFloat(),project.selling))
         }
-
         return barEntries
     }
 
     private fun barBooking(): ArrayList<BarEntry> {
         val barEntries = arrayListOf<BarEntry>()
-//        barEntries.add(BarEntry(1f,900f))
-//        barEntries.add(BarEntry(2f,691f))
-//        barEntries.add(BarEntry(3f,1030f))
-//        barEntries.add(BarEntry(4f,382f))
-//        barEntries.add(BarEntry(5f,2714f))
-//        barEntries.add(BarEntry(6f,5000f))
-//        barEntries.add(BarEntry(7f,1173f))
         listInitData.forEachIndexed { index, project ->
             barEntries.add(BarEntry((index+1).toFloat(),project.booking))
         }
@@ -72,13 +57,6 @@ class HistoryFragment: Fragment() {
 
     private fun barSold(): ArrayList<BarEntry> {
         val barEntries = arrayListOf<BarEntry>()
-//        barEntries.add(BarEntry(1f,800f))
-//        barEntries.add(BarEntry(2f,453f))
-//        barEntries.add(BarEntry(3f,382f))
-//        barEntries.add(BarEntry(4f,2000f))
-//        barEntries.add(BarEntry(5f,900f))
-//        barEntries.add(BarEntry(6f,500f))
-//        barEntries.add(BarEntry(7f,691f))
         listInitData.forEachIndexed { index, project ->
             barEntries.add(BarEntry((index+1).toFloat(),project.sold))
         }
@@ -93,45 +71,58 @@ class HistoryFragment: Fragment() {
         return dataLabels
     }
     private fun initMutilBarChar(chart: HorizontalBarChart){
-        val barDataSet1 = BarDataSet(barSelling(),"")
-        barDataSet1.setColors(Color.parseColor("#59B3D0"))
-        val barDataSet2 = BarDataSet(barBooking(),"")
-        barDataSet2.setColors(Color.parseColor("#924CD3"))
-        val barDataSet3 = BarDataSet(barSold(),"")
-        barDataSet3.setColors(Color.parseColor("#D3D3D3"))
+        val barSetSelling = BarDataSet(barSelling(),"")
+        barSetSelling.setColors(Color.parseColor("#6bbcd7"))
+        barSetSelling.valueTextColor = Color.parseColor("#6bbcd7")
+        barSetSelling.setDrawValues(true)
 
-        val data = BarData(barDataSet1,barDataSet2,barDataSet3)
+        val barSetBooking = BarDataSet(barBooking(),"")
+        barSetBooking.setColors(Color.parseColor("#d8d8d8"))
+        barSetBooking.valueTextColor = Color.parseColor("#d8d8d8")
+        barSetBooking.setDrawValues(true)
+
+        val barSetSold = BarDataSet(barSold(),"")
+        barSetSold.setColors(Color.parseColor("#9a59dc"))
+        barSetSold.valueTextColor = Color.parseColor("#9a59dc")
+        barSetSold.setDrawValues(true)
+
+        val data = BarData(barSetSold,barSetBooking,barSetSelling)
+        data.isHighlightEnabled = false
         chart.data = data
 
-        val days = arrayListOf<String>()
+        val projects = arrayListOf<String>()
         listInitData.forEach {
-            days.add(it.name)
+            projects.add(it.name)
         }
-
         val xAxis = chart.xAxis
-        xAxis.valueFormatter = IndexAxisValueFormatter(days)
+        xAxis.valueFormatter = IndexAxisValueFormatter(projects)
         xAxis.setCenterAxisLabels(true)
         chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-//        xAxis.granularity = 0.5f
-//        xAxis.isGranularityEnabled = false
-        chart.isDragEnabled = false
-        chart.setScaleEnabled(false);
-//        chart.axisRight.setDrawGridLines(false);
-        chart.xAxis.setDrawGridLines(false);
+        xAxis.granularity = 0.5f
+        xAxis.isGranularityEnabled = false
+        chart.isDragEnabled = false // De khong keo len keo xuong
+        chart.setScaleEnabled(false); // De khong zoom duoc
+        chart.axisRight.setDrawGridLines(false);
+        chart.xAxis.setDrawGridLines(false); // bo
+        chart.xAxis.axisLineColor = Color.parseColor("#f3f3f8")
         chart.axisLeft.setDrawAxisLine(false)
         chart.axisRight.setDrawAxisLine(false)
         chart.axisLeft.gridColor = Color.parseColor("#f3f3f8")
         chart.axisLeft.setDrawLabels(false);
-        chart.axisRight.setDrawLabels(false);
+        chart.axisRight.setDrawLabels(true);
         chart.description.isEnabled = false;
         chart.legend.isEnabled = false;
+        chart.axisLeft.axisMaximum = 400f;
+        chart.axisLeft.axisMinimum = 0f;
+
+
 
 //        chart.setVisibleXRangeMaximum(3f)
         val barSpace = 0.00f
-        val groupSpace = 0.55f
+        val groupSpace = 0.4f
         data.barWidth = 0.15f
         xAxis.axisMinimum = 0f
-        xAxis.axisMaximum = 0 + chart.barData.getGroupWidth(groupSpace, barSpace)*listInitData.size
+        xAxis.axisMaximum = dataBarLabels().size - 1.1f
         chart.groupBars(0f,groupSpace, barSpace)
         chart.invalidate()
     }
