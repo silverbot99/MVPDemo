@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mvpdemo.screen.country.CountriesFragment
+import com.example.mvpdemo.screen.history.ChartFragment
 import com.example.mvpdemo.screen.history.HistoryFragment
 import com.example.mvpdemo.screen.statistics.StatisticsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,11 +32,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     replaceFragment(CountriesFragment())
                     return true
                 }
-                R.id.third_fragment -> {
-//                    toolbar?.let { it.title = getString(R.string.text_history)}
-                    replaceFragment(HistoryFragment())
-                    return true
-                }
+
             }
             return false
         }

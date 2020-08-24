@@ -51,11 +51,9 @@ class StatisticsFragment: Fragment(),
 //        progressBar.indeterminateDrawable = doubleBounce
 //    }
 
-    lateinit var tvTitle : TextView
     private fun initView(view: View) {
         recyclerView = view.findViewById(R.id.rvStatics)
-        tvTitle= view.findViewById<TextView>(R.id.tvTitle)
-        progressBar.isIndeterminate = true;
+        progressBar.isIndeterminate = true
     }
 
 
