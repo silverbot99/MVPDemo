@@ -20,6 +20,7 @@ import com.example.mvpdemo.screen.country.presentation.renderer.CountriesViewRen
 import com.example.mvpdemo.screen.country_detail.CountryDetailActivity
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
+import kotlinx.android.synthetic.main.item_layout_toolbar.*
 import kotlinx.android.synthetic.main.layout_countries.*
 import kotlinx.android.synthetic.main.layout_countries.progressBar
 
@@ -61,6 +62,7 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
     private fun initView() {
         svCountry.setOnQueryTextListener(onQueryTextChange)
         progressBar.isIndeterminate = true
+        tvTitle.text = "Danh sách đất nước"
     }
     private val onQueryTextChange: SearchView.OnQueryTextListener= object :SearchView.OnQueryTextListener{
         override fun onQueryTextSubmit(query: String?): Boolean {
