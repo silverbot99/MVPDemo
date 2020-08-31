@@ -1,4 +1,4 @@
-package com.example.mvpdemo.screen.statistics
+package com.example.mvpdemo.screen.main_statistic
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -23,7 +23,7 @@ import java.net.InetAddress
 import java.net.UnknownHostException
 
 
-class StatisticsFragment: Fragment(),
+class MainStatisticsFragment: Fragment(),
     StatisticsContract.StatisticsView {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: StatisticsAdapter

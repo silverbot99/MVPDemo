@@ -10,9 +10,11 @@
         android:title="@string/menu_countries"
         android:icon="@drawable/ic_countries"/>
 
-    <item
-        android:id="@+id/third_fragment"
-        android:title="@string/menu_history"
-        android:icon="@drawable/ic_history"/>
-
 </menu>
+
+
+
+    <!--    <item-->
+    <!--        android:id="@+id/third_fragment"-->
+    <!--        android:title="@string/menu_history"-->
+    <!--        android:icon="@drawable/ic_history"/>-->

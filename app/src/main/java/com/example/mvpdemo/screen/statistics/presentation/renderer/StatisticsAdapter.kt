@@ -24,7 +24,6 @@ class StatisticsAdapter(private val list: MutableList<ItemStatisticsViewModel>) 
         holder.mNewCases.text = list[position].cases.new.toString()
         holder.mDeaths.text = list[position].deaths.total.toString()
         holder.mTotal.text = list[position].cases.total.toString()
-
     }
 
 

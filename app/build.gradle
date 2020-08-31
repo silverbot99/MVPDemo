@@ -42,6 +42,8 @@ dependencies {
     //ViewModel
     implementation 'com.github.vivchar:RendererRecyclerViewAdapter:2.8.0'
 
+    //SpinKit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     //Lottie
     implementation 'com.airbnb.android:lottie:3.4.1'
 

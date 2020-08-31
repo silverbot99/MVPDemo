@@ -22,18 +22,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             when(item.itemId){
                 R.id.first_fragment -> {
-//                    toolbar?.let { it.title = getString(R.string.text_statistics) }
                     replaceFragment(StatisticsFragment())
                     return true
                 }
                 R.id.second_fragment -> {
-//                    toolbar?.let { it.title = getString(R.string.text_list_countries)}
                     replaceFragment(CountriesFragment())
-                    return true
-                }
-                R.id.third_fragment -> {
-//                    toolbar?.let { it.title = getString(R.string.text_history)}
-                    replaceFragment(HistoryFragment())
                     return true
                 }
             }
@@ -49,9 +42,4 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             .addToBackStack(null)
             .commit()
     }
-    companion object{
-        val catLoadingView = CatLoadingView()
-    }
-
-
 }
