@@ -2,7 +2,6 @@ package com.example.mvpdemo.screen.statistics.presentation
 
 import com.example.mvpdemo.base.network.ApiInterfac
 import com.example.mvpdemo.base.network.CustomApiClient
-import com.example.mvpdemo.base.network.response.CountriesResponse
 import com.example.mvpdemo.base.network.response.StatisticsResponse
 import com.example.mvpdemo.screen.statistics.domain.StatisticsMapper
 import io.reactivex.Observable
@@ -11,9 +10,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class StatisticsPresenter(val view: StatisticsContract.StatisticsView): StatisticsContract.Presenter() {

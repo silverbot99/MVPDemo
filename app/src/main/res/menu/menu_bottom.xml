@@ -8,13 +8,11 @@
     <item
         android:id="@+id/second_fragment"
         android:title="@string/menu_countries"
-        android:icon="@drawable/ic_countries"/>
+        android:icon="@drawable/ic_world"/>
+
+    <item
+        android:id="@+id/third_fragment"
+        android:title="@string/text_title_news"
+        android:icon="@drawable/ic_world"/>
 
 </menu>
-
-
-
-    <!--    <item-->
-    <!--        android:id="@+id/third_fragment"-->
-    <!--        android:title="@string/menu_history"-->
-    <!--        android:icon="@drawable/ic_history"/>-->

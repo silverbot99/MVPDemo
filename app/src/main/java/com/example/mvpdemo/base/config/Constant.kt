@@ -1,5 +1,9 @@
 package com.example.mvpdemo.base.config
 
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+
 class Constant {
     companion object{
         val BASE_URL = "https://covid-193.p.rapidapi.com/"
@@ -21,5 +25,18 @@ class Constant {
         fun Int?.getValueOrDefaultZero():Int{
             return this ?: return 0
         }
+
+        fun String.formatNumber():String{
+            val nf: NumberFormat = NumberFormat.getInstance(Locale.FRENCH)
+            return nf.parse(this).toString()
+
+        }
+        fun doubleToStringNoDecimal(d: Double): String? {
+            val formatter: DecimalFormat =
+                NumberFormat.getInstance(Locale.US) as DecimalFormat
+            formatter.applyPattern("#,###")
+            return formatter.format(d)
+        }
+
     }
 }

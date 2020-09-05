@@ -8,7 +8,7 @@ interface CountriesContract {
         fun hideLoading()
         fun showToast(msg: String)
         fun showError(error: String)
-        fun showData(list: List<String>)
+        fun showData(list: MutableList<ViewModel>)
     }
     abstract class Presenter{
         abstract fun getData(queryCountry :String?)

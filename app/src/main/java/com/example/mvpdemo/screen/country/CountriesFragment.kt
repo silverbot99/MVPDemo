@@ -2,6 +2,7 @@ package com.example.mvpdemo.screen.country
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,9 @@ import com.example.mvpdemo.R
 import com.example.mvpdemo.base.function.pass_data.OnNotifyData
 import com.example.mvpdemo.screen.country.presentation.CountriesContract
 import com.example.mvpdemo.screen.country.presentation.CountriesPresenter
+import com.example.mvpdemo.screen.country.presentation.model.ItemCountryAlphabetViewModel
 import com.example.mvpdemo.screen.country.presentation.model.ItemCountryViewModel
+import com.example.mvpdemo.screen.country.presentation.renderer.CountriesAlphabetViewRenderer
 import com.example.mvpdemo.screen.country.presentation.renderer.CountriesViewRenderer
 import com.example.mvpdemo.screen.country_detail.CountryDetailActivity
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
@@ -46,6 +49,7 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
         recyclerView = view.findViewById(R.id.rvCountry)
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter.registerRenderer(CountriesViewRenderer(ItemCountryViewModel::class.java, onNotifyData))
+        adapter.registerRenderer(CountriesAlphabetViewRenderer(ItemCountryAlphabetViewModel::class.java))
         recyclerView.adapter = adapter
         presenter.getData("")
         initView()
@@ -62,7 +66,6 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
     private fun initView() {
         svCountry.setOnQueryTextListener(onQueryTextChange)
         progressBar.isIndeterminate = true
-        tvTitle.text = "Danh sách đất nước"
     }
     private val onQueryTextChange: SearchView.OnQueryTextListener= object :SearchView.OnQueryTextListener{
         override fun onQueryTextSubmit(query: String?): Boolean {
@@ -98,11 +101,9 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
         Toast.makeText(context,error, Toast.LENGTH_LONG).show()
     }
 
-    override fun showData(list: List<String>) {
+    override fun showData(list: MutableList<ViewModel>) {
         listData.clear()
-        list.forEachIndexed { index, s ->
-            listData.add(ItemCountryViewModel(index,s))
-        }
+       listData.addAll(list)
         adapter.setItems(listData)
         adapter.notifyDataSetChanged()
     }

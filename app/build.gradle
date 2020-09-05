@@ -44,8 +44,10 @@ dependencies {
 
     //SpinKit
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-    //Lottie
-    implementation 'com.airbnb.android:lottie:3.4.1'
+    
+    //Material google
+    implementation 'com.google.android.material:material:1.2.1'
+
 
     //Loading
     implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.5'

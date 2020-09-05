@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_E9E9FF">
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +45,8 @@
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="@color/color_white"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="38dp"
                         android:gravity="center"
                         app:layout_constraintStart_toEndOf="@id/ivHuman"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -55,11 +57,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="April 24, 2020, 12:48 GMT"
+                        tools:text="April 24, 2020, 12:48 GMT"
                         android:textColor="@color/color_white"
                         android:gravity="center"
                         android:textSize="14sp"
                         android:layout_marginTop="13dp"
+                        android:layout_marginEnd="38dp"
                         app:layout_constraintStart_toEndOf="@id/ivHuman"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvWorldCases"/>
@@ -72,16 +75,18 @@
                         android:text="27,32,445"
                         android:textColor="@color/color_white"
                         android:gravity="center"
-                        android:textSize="40sp"
+                        android:textSize="30sp"
                         android:layout_marginTop="13dp"
+                        android:layout_marginEnd="38dp"
                         app:layout_constraintStart_toEndOf="@id/ivHuman"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvTime"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
 
+
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvDeaths"
+                android:id="@+id/cvActiveCases"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="260dp"
@@ -95,159 +100,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/glCenter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.6"
-                        android:orientation="vertical"/>
-
-                    <TextView
-                        android:id="@+id/tvTitleDeaths"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tử vong"
-                        android:textAllCaps="true"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_7777FF"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginStart="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintHorizontal_bias="0"/>
-
-                    <TextView
-                        android:id="@+id/tvTotalDeaths"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="206,577"
-                        android:fontFamily="@font/roboto_bold"
-                        android:textColor="@color/color_back"
-                        android:textSize="35sp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginStart="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitleDeaths"
-                        app:layout_constraintHorizontal_bias="0"/>
-
-                    <com.robinhood.spark.SparkView
-                        android:id="@+id/spartViewDeaths"
-                        android:layout_width="130dp"
-                        android:layout_height="34dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="6dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintTop_toBottomOf="@id/tvTotalDeaths" />
-                    <ImageView
-                        android:id="@+id/ivMobilizeMildCondition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_decrease_green"
-                        android:layout_marginTop="22dp"
-                        app:layout_constraintStart_toEndOf="@id/glCenter"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"/>
-
-                    <TextView
-                        android:id="@+id/tvMildCondition"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        tools:text="+25.7%"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/color_back"
-                        android:textSize="20sp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginEnd="6dp"
-                        app:layout_constraintStart_toEndOf="@id/ivMobilizeMildCondition"
-                        app:layout_constraintTop_toTopOf="@id/ivMobilizeMildCondition"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/ivMobilizeMildCondition"/>
-
-                    <TextView
-                        android:id="@+id/tvTitleMildCondition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textSize="14dp"
-                        android:text="Tình trạng nhẹ"
-                        android:layout_marginTop="6dp"
-                        app:layout_constraintStart_toStartOf="@id/glCenter"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ivMobilizeMildCondition"/>
-
-                    <ImageView
-                        android:id="@+id/ivMobilizeCritical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_decrease_green"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintStart_toEndOf="@id/glCenter"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitleMildCondition"/>
-
-                    <TextView
-                        android:id="@+id/tvCritical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        tools:text="+25.7%"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/color_back"
-                        android:textSize="20sp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginEnd="6dp"
-                        app:layout_constraintStart_toEndOf="@id/ivMobilizeCritical"
-                        app:layout_constraintTop_toTopOf="@id/ivMobilizeCritical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/ivMobilizeCritical"/>
-
-                    <TextView
-                        android:id="@+id/tvTitleCritical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textSize="14dp"
-                        android:text="Nguy kịch"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginBottom="22dp"
-                        app:layout_constraintStart_toStartOf="@id/glCenter"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ivMobilizeCritical"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvActiveCases"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintTop_toBottomOf="@id/cvDeaths"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/glCenterActive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.6"
+                        app:layout_constraintGuide_percent="0.7"
                         android:orientation="vertical"/>
 
                     <TextView
                         android:id="@+id/tvTitleActive"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Ca nhiễm bệnh hiện tại"
                         android:textAllCaps="true"
@@ -257,7 +118,7 @@
                         android:layout_marginTop="14dp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/glCenterActive"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintHorizontal_bias="0"/>
 
@@ -268,7 +129,7 @@
                         tools:text="206,577"
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="@color/color_back"
-                        android:textSize="35sp"
+                        android:textSize="20sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -305,7 +166,7 @@
                         tools:text="+25.7%"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/color_back"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="6dp"
                         app:layout_constraintStart_toEndOf="@id/ivMobilizeMildConditionActive"
@@ -319,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
                         android:textSize="14dp"
-                        android:text="Tình trạng nhẹ"
+                        android:text="Ca nhiễm mới"
                         android:layout_marginTop="6dp"
                         app:layout_constraintStart_toStartOf="@id/glCenterActive"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -330,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_decrease_green"
+                        android:src="@drawable/ic_increase_red"
                         android:layout_marginTop="20dp"
                         app:layout_constraintStart_toEndOf="@id/glCenterActive"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -344,7 +205,7 @@
                         tools:text="+25.7%"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/color_back"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="6dp"
                         app:layout_constraintStart_toEndOf="@id/ivMobilizeCriticalActive"
@@ -357,7 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:text="Nguy kịch"
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="22dp"
@@ -367,6 +228,151 @@
                         app:layout_constraintBottom_toBottomOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvDeaths"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="26dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintTop_toBottomOf="@id/cvClosedCase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/glCenter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintGuide_percent="0.7"
+                        android:orientation="vertical"/>
+
+                    <TextView
+                        android:id="@+id/tvTitleDeaths"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Tử vong"
+                        android:textAllCaps="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_7777FF"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/glCenter"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHorizontal_bias="0"/>
+
+                    <TextView
+                        android:id="@+id/tvTotalDeaths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="206,577"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/color_back"
+                        android:textSize="20sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitleDeaths"
+                        app:layout_constraintHorizontal_bias="0"/>
+
+                    <com.robinhood.spark.SparkView
+                        android:id="@+id/spartViewDeaths"
+                        android:layout_width="130dp"
+                        android:layout_height="34dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="6dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintTop_toBottomOf="@id/tvTotalDeaths" />
+                    <ImageView
+                        android:id="@+id/ivMobilizeMildCondition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_decrease_green"
+                        android:layout_marginTop="22dp"
+                        app:layout_constraintStart_toEndOf="@id/glCenter"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"/>
+
+                    <TextView
+                        android:id="@+id/tvMildCondition"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="+25.7%"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/color_back"
+                        android:textSize="14sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="6dp"
+                        app:layout_constraintStart_toEndOf="@id/ivMobilizeMildCondition"
+                        app:layout_constraintTop_toTopOf="@id/ivMobilizeMildCondition"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/ivMobilizeMildCondition"/>
+
+                    <TextView
+                        android:id="@+id/tvTitleMildCondition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="14sp"
+                        android:text="Hôm nay"
+                        android:layout_marginTop="6dp"
+                        app:layout_constraintStart_toStartOf="@id/glCenter"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivMobilizeMildCondition"/>
+
+                    <ImageView
+                        android:id="@+id/ivMobilizeCritical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_increase_red"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toEndOf="@id/glCenter"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitleMildCondition"/>
+
+                    <TextView
+                        android:id="@+id/tvOnePop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:text="+25.7%"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/color_back"
+                        android:textSize="14sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="6dp"
+                        app:layout_constraintStart_toEndOf="@id/ivMobilizeCritical"
+                        app:layout_constraintTop_toTopOf="@id/ivMobilizeCritical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/ivMobilizeCritical"/>
+
+                    <TextView
+                        android:id="@+id/tvTitleCritical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="14sp"
+                        android:text="1M_pop"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="22dp"
+                        app:layout_constraintStart_toStartOf="@id/glCenter"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivMobilizeCritical"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvClosedCase"
@@ -386,14 +392,14 @@
                         android:id="@+id/glCenterClosed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.6"
+                        app:layout_constraintGuide_percent="0.7"
                         android:orientation="vertical"/>
 
                     <TextView
                         android:id="@+id/tvTitleClose"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Ca nhiễm bệnh hiện tại"
+                        android:text="Ca nhiễm đã bình phục"
                         android:textAllCaps="true"
                         android:fontFamily="@font/roboto_medium"
                         android:textSize="14sp"
@@ -401,7 +407,7 @@
                         android:layout_marginTop="14dp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/glCenterClosed"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintHorizontal_bias="0"/>
 
@@ -412,7 +418,7 @@
                         tools:text="206,577"
                         android:fontFamily="@font/roboto_bold"
                         android:textColor="@color/color_back"
-                        android:textSize="35sp"
+                        android:textSize="20sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginStart="20dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -449,7 +455,7 @@
                         tools:text="+25.7%"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/color_back"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="6dp"
                         app:layout_constraintStart_toEndOf="@id/ivMobilizeRecoverClose"
@@ -462,8 +468,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
-                        android:textSize="14dp"
-                        android:text="Đã bình phục"
+                        android:textSize="14sp"
+                        android:text="Hôm nay"
                         android:layout_marginTop="6dp"
                         app:layout_constraintStart_toStartOf="@id/glCenterClosed"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -474,7 +480,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_decrease_green"
+                        android:src="@drawable/ic_increase_red"
                         android:layout_marginTop="20dp"
                         app:layout_constraintStart_toEndOf="@id/glCenterClosed"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -482,13 +488,13 @@
                         app:layout_constraintTop_toBottomOf="@id/tvTitleRecoverClosed"/>
 
                     <TextView
-                        android:id="@+id/tvCriticalClosed"
+                        android:id="@+id/tvTest"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="+25.7%"
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/color_back"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="6dp"
                         app:layout_constraintStart_toEndOf="@id/ivMobilizeCriticalClosed"
@@ -497,12 +503,12 @@
                         app:layout_constraintBottom_toBottomOf="@id/ivMobilizeCriticalClosed"/>
 
                     <TextView
-                        android:id="@+id/tvTitleCriticalClosed"
+                        android:id="@+id/tvTitleTest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
-                        android:textSize="14dp"
-                        android:text="Nguy kịch"
+                        android:textSize="14sp"
+                        android:text="Số test"
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="22dp"
                         app:layout_constraintStart_toStartOf="@id/glCenterClosed"
@@ -523,7 +529,7 @@
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvClosedCase"/>
+                app:layout_constraintTop_toBottomOf="@id/cvDeaths"/>
 
             <TextView
                 android:id="@+id/tvTitleRequirement"
@@ -564,6 +570,16 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTitleRequirement"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

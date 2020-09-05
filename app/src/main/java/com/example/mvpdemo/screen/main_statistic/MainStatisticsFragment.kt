@@ -7,39 +7,47 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvpdemo.R
+import com.example.mvpdemo.base.config.Constant.Companion.doubleToStringNoDecimal
+import com.example.mvpdemo.base.config.Constant.Companion.formatNumber
+import com.example.mvpdemo.screen.main_statistic.presentation.MainStatisticsContract
+import com.example.mvpdemo.screen.main_statistic.presentation.MainStatisticsPresenter
+import com.example.mvpdemo.screen.main_statistic.presentation.model.MainStatisticViewModel
 import com.example.mvpdemo.screen.statistics.presentation.StatisticsContract
 import com.example.mvpdemo.screen.statistics.presentation.StatisticsPresenter
 import com.example.mvpdemo.screen.statistics.presentation.model.ItemStatisticsViewModel
 import com.example.mvpdemo.screen.statistics.presentation.renderer.StatisticsAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
+import kotlinx.android.synthetic.main.item_layout_statistics.*
+import kotlinx.android.synthetic.main.layout_main_statistic.*
 import kotlinx.android.synthetic.main.layout_statistics.*
 import java.net.InetAddress
 import java.net.UnknownHostException
 
 
 class MainStatisticsFragment: Fragment(),
-    StatisticsContract.StatisticsView {
-    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: StatisticsAdapter
+    MainStatisticsContract.MainStatisticView {
     var listData: MutableList<ItemStatisticsViewModel> = mutableListOf()
+    lateinit var progressBar : ProgressBar
     var presenter=
-        StatisticsPresenter(
+        MainStatisticsPresenter(
             this
         )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.layout_statistics, container, false)
+        return inflater.inflate(R.layout.layout_main_statistic, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
         initView(view)
@@ -47,8 +55,6 @@ class MainStatisticsFragment: Fragment(),
 
     lateinit var tvTitle : TextView
     private fun initView(view: View) {
-        recyclerView = view.findViewById(R.id.rvStatics)
-        tvTitle= view.findViewById<TextView>(R.id.tvTitle)
         progressBar.isIndeterminate = true;
     }
 
@@ -81,13 +87,13 @@ class MainStatisticsFragment: Fragment(),
     }
 
     override fun showLoading() {
-        rvStatics.visibility = View.GONE
+        nsvMain.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        rvStatics.visibility = View.VISIBLE
         progressBar.visibility = View.GONE
+        nsvMain.visibility = View.VISIBLE
     }
 
     override fun showToast(msg: String) {
@@ -99,18 +105,20 @@ class MainStatisticsFragment: Fragment(),
     }
 
 
-    override fun showData(list: MutableList<ViewModel>) {
-        listData.clear()
-        list.forEach {
-            if (it is ItemStatisticsViewModel) listData.add(it)
-        }
+    override fun showData(model: MainStatisticViewModel) {
+        tvTime.text = model.nowTime
+        tvTotalCases.text = doubleToStringNoDecimal(model.totalWorldCases.toDouble())
 
-        adapter =
-            StatisticsAdapter(
-                listData.sortedByDescending { item -> item.cases.new }.toMutableList()
-            )
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
-        adapter.notifyDataSetChanged()
+        tvTotalActive.text = doubleToStringNoDecimal(model.totalActiveCases.toDouble())
+        tvMildConditionActive.text = model.newCases
+        tvCriticalActive.text = doubleToStringNoDecimal(model.critical.toDouble())
+
+        tvTotalClosed.text = doubleToStringNoDecimal(model.totalClosedCased.toDouble())
+        tvRecoverClosed.text = model.newRecovered
+        tvTest.text = doubleToStringNoDecimal(model.totalTest.toDouble())
+
+        tvTotalDeaths.text = doubleToStringNoDecimal(model.totalDeath.toDouble())
+        tvMildCondition.text = model.newDeaths
+        tvOnePop.text = model.OnePop
     }
 }

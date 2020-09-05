@@ -9,6 +9,7 @@ import com.example.mvpdemo.base.network.ApiInterfac
 import com.example.mvpdemo.base.network.CustomApiClient
 import com.example.mvpdemo.base.network.response.CountriesResponse
 import com.example.mvpdemo.screen.country.presentation.CountriesContract.CountriesView
+import com.example.mvpdemo.screen.country.presentation.renderer.CountriesMapper
 import com.example.mvpdemo.screen.country_detail.CountryDetailActivity
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -36,7 +37,6 @@ class CountriesPresenter(val view: CountriesView): CountriesContract.Presenter()
 
             countryObserver.subscribeWith(object :Observer<CountriesResponse>{
                 override fun onComplete() {
-                    view.showToast("Finished")
                     view.hideLoading()
                 }
 
@@ -46,7 +46,8 @@ class CountriesPresenter(val view: CountriesView): CountriesContract.Presenter()
 
                 override fun onNext(t: CountriesResponse) {
                     if (t.response!=null || t.response.size!=0){
-                        view.showData(t.response)
+                        val isSearch = !queryCountry.isNullOrBlank()
+                        view.showData(CountriesMapper(isSearch).map(t))
                     }
                 }
 
