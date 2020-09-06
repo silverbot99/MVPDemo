@@ -38,7 +38,6 @@ class CountryDetailActivity: AppCompatActivity(R.layout.layout_country_detail)
         initView()
         getInfoCountry()
         val calendar: Date = Calendar.getInstance().time
-        showToast(calendar.toString())
         val simpleFormat = SimpleDateFormat("yyyy-MM-dd")
         val today = simpleFormat.format(calendar)
         if (country!=""){
@@ -66,7 +65,7 @@ class CountryDetailActivity: AppCompatActivity(R.layout.layout_country_detail)
 
     private fun handleGetDate(dayOfMonth: Int, monthOfYear: Int, year: Int) {
         val day: String = if (dayOfMonth>=10 ) {dayOfMonth.toString() } else "0$dayOfMonth"
-        val month: String = if (monthOfYear>=10 ) "${monthOfYear+1}"  else "0$monthOfYear"
+        val month: String = if (monthOfYear>=10 ) "${monthOfYear+1}"  else "0${monthOfYear+1}"
         val stringDate = "$year-$month-$day"
         presenter.getData(date = stringDate, country = country)
     }
