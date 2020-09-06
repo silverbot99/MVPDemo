@@ -1,6 +1,7 @@
 package com.example.mvpdemo.screen.main_statistic
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
@@ -16,14 +17,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mvpdemo.R
 import com.example.mvpdemo.base.config.Constant.Companion.doubleToStringNoDecimal
 import com.example.mvpdemo.base.config.Constant.Companion.formatNumber
+import com.example.mvpdemo.screen.country_detail.CountryDetailActivity
 import com.example.mvpdemo.screen.main_statistic.presentation.MainStatisticsContract
 import com.example.mvpdemo.screen.main_statistic.presentation.MainStatisticsPresenter
 import com.example.mvpdemo.screen.main_statistic.presentation.model.MainStatisticViewModel
+import com.example.mvpdemo.screen.main_statistic.presentation.model.SparkViewDataViewModel
+import com.example.mvpdemo.screen.statistics.StatisticsActivity
 import com.example.mvpdemo.screen.statistics.presentation.StatisticsContract
 import com.example.mvpdemo.screen.statistics.presentation.StatisticsPresenter
 import com.example.mvpdemo.screen.statistics.presentation.model.ItemStatisticsViewModel
 import com.example.mvpdemo.screen.statistics.presentation.renderer.StatisticsAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
+import com.robinhood.spark.SparkAdapter
+import com.robinhood.spark.SparkView
 import kotlinx.android.synthetic.main.item_layout_statistics.*
 import kotlinx.android.synthetic.main.layout_main_statistic.*
 import kotlinx.android.synthetic.main.layout_statistics.*
@@ -33,7 +39,6 @@ import java.net.UnknownHostException
 
 class MainStatisticsFragment: Fragment(),
     MainStatisticsContract.MainStatisticView {
-    var listData: MutableList<ItemStatisticsViewModel> = mutableListOf()
     lateinit var progressBar : ProgressBar
     var presenter=
         MainStatisticsPresenter(
@@ -56,9 +61,10 @@ class MainStatisticsFragment: Fragment(),
     lateinit var tvTitle : TextView
     private fun initView(view: View) {
         progressBar.isIndeterminate = true;
+        tvCheckDetailStatistic.setOnClickListener {
+            goToStatisticActivity()
+        }
     }
-
-
     private fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -79,6 +85,7 @@ class MainStatisticsFragment: Fragment(),
         if (context!=null){
             if (isNetworkAvailable(requireContext()) || isInternetAvailable()){
                 presenter.getData()
+                presenter.getDataStatisticTime()
             }
             else{
                 showToast("Please turn on your network!")
@@ -104,10 +111,10 @@ class MainStatisticsFragment: Fragment(),
         Toast.makeText(context,error,Toast.LENGTH_LONG).show()
     }
 
-
     override fun showData(model: MainStatisticViewModel) {
         tvTime.text = model.nowTime
         tvTotalCases.text = doubleToStringNoDecimal(model.totalWorldCases.toDouble())
+
 
         tvTotalActive.text = doubleToStringNoDecimal(model.totalActiveCases.toDouble())
         tvMildConditionActive.text = model.newCases
@@ -120,5 +127,30 @@ class MainStatisticsFragment: Fragment(),
         tvTotalDeaths.text = doubleToStringNoDecimal(model.totalDeath.toDouble())
         tvMildCondition.text = model.newDeaths
         tvOnePop.text = model.OnePop
+    }
+
+    override fun showDataSparkView(model: SparkViewDataViewModel) {
+        sparkViewActive.adapter =MyAdapter(model.listTotalActiveCases)
+        spartViewDeaths.adapter =MyAdapter(model.listTotalDeath)
+        sparkViewClose.adapter =MyAdapter(model.listRecovered)
+    }
+
+    private fun goToStatisticActivity(){
+        val intent = Intent (activity, StatisticsActivity::class.java)
+        activity?.startActivity(intent)
+    }
+    class MyAdapter(private val yData: MutableList<Float>) : SparkAdapter() {
+        override fun getCount(): Int {
+            return yData.size
+        }
+
+        override fun getItem(index: Int): Any {
+            return yData[index]
+        }
+
+        override fun getY(index: Int): Float {
+            return yData[index]
+        }
+
     }
 }

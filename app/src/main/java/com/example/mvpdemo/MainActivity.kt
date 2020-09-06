@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mvpdemo.screen.country.CountriesFragment
 import com.example.mvpdemo.screen.main_statistic.MainStatisticsFragment
+import com.example.mvpdemo.screen.news.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -27,11 +28,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     replaceFragment(CountriesFragment())
                     return true
                 }
+                R.id.third_fragment -> {
+                    replaceFragment(NewsFragment())
+                    return true
+                }
             }
             return false
         }
     }
-
 
     private fun replaceFragment(fragment: Fragment) {
         this.supportFragmentManager

@@ -1,5 +1,6 @@
 package com.example.mvpdemo.screen.country_detail
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mvpdemo.R
+import com.example.mvpdemo.base.config.Constant.Companion.doubleToStringNoDecimal
+import com.example.mvpdemo.base.config.Constant.Companion.getValueOrDefaultZero
 import com.example.mvpdemo.screen.country_detail.presentation.CountryDetailContract
 import com.example.mvpdemo.screen.country_detail.presentation.CountryDetailPresenter
 import com.example.mvpdemo.screen.country_detail.presentation.model.ItemCountriesDetailViewModel
@@ -15,8 +18,8 @@ import com.robinhood.spark.SparkView
 import kotlinx.android.synthetic.main.item_layout_toolbar.*
 import kotlinx.android.synthetic.main.layout_country_detail.*
 import kotlinx.android.synthetic.main.layout_country_detail.progressBar
+import java.text.SimpleDateFormat
 import java.util.*
-
 
 class CountryDetailActivity: AppCompatActivity(R.layout.layout_country_detail)
     ,CountryDetailContract.CountryDetailView {
@@ -28,11 +31,19 @@ class CountryDetailActivity: AppCompatActivity(R.layout.layout_country_detail)
             this
         )
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        initChart()
         initView()
         getInfoCountry()
+        val calendar: Date = Calendar.getInstance().time
+        showToast(calendar.toString())
+        val simpleFormat = SimpleDateFormat("yyyy-MM-dd")
+        val today = simpleFormat.format(calendar)
+        if (country!=""){
+            presenter.getData(date = today, country = country)
+        }
     }
 
     private fun initView() {
@@ -46,18 +57,27 @@ class CountryDetailActivity: AppCompatActivity(R.layout.layout_country_detail)
             val datePickerDialog = DatePickerDialog(
                 this,
                 OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    showToast("getData: $dayOfMonth/${monthOfYear+1}/$year")
+                    handleGetDate(dayOfMonth, monthOfYear, year)
                 }, mYear, mMonth, mDay
             )
             datePickerDialog.show()
         }
     }
 
+    private fun handleGetDate(dayOfMonth: Int, monthOfYear: Int, year: Int) {
+        val day: String = if (dayOfMonth>=10 ) {dayOfMonth.toString() } else "0$dayOfMonth"
+        val month: String = if (monthOfYear>=10 ) "${monthOfYear+1}"  else "0$monthOfYear"
+        val stringDate = "$year-$month-$day"
+        presenter.getData(date = stringDate, country = country)
+    }
+
+    private var country = ""
     private fun getInfoCountry() {
         val intent = intent
         val loadsCountry = intent.getStringExtra("country")
         if (loadsCountry!=null){
             tvCountryName.text = loadsCountry
+            country = loadsCountry
         }
     }
 
@@ -83,8 +103,13 @@ class CountryDetailActivity: AppCompatActivity(R.layout.layout_country_detail)
         Toast.makeText(this,error, Toast.LENGTH_LONG).show()
     }
 
-    override fun showData(list: List<ItemCountriesDetailViewModel>) {
-
+    override fun showData(item: ItemCountriesDetailViewModel) {
+        tvPopulation.text = doubleToStringNoDecimal(item.population.toDouble())
+        tvTotalCases.text = doubleToStringNoDecimal(item.totalCase.toDouble())
+        tvNewCases.text = item.newCase.getValueOrDefaultZero()
+        tvDeaths.text = item.deaths.getValueOrDefaultZero()
+        tvRecover.text = doubleToStringNoDecimal(item.recovered.toDouble())
+        tvCritical.text = doubleToStringNoDecimal(item.critical.toDouble())
     }
 
 

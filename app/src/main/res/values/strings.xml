@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVPDemo</string>
+    <string name="app_name">Covid Tracking</string>
     <string name="menu_dashboard">Thống kê</string>
     <string name="menu_countries">Đất nước</string>
     <string name="menu_history">Lịch sử</string>

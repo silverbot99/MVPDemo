@@ -3,8 +3,6 @@ package com.example.mvpdemo.base.network.response
 import com.google.gson.annotations.SerializedName
 
 data class HistoryResponse(
-    @SerializedName("errors")
-    var errors: List<Any>,
     @SerializedName("get")
     var get: String,
     @SerializedName("parameters")

@@ -12,7 +12,7 @@
         app:layout_constraintGuide_percent="0.4"/>
 
     <ImageView
-        android:id="@+id/ivfirstNews"
+        android:id="@+id/ivFirstNews"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@mipmap/logo_img_new1"
@@ -73,6 +73,7 @@
             android:layout_marginTop="21dp"
             android:layout_marginBottom="21dp"
             android:text="Đọc tiếp >"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:textColor="@color/color_white"
             android:textSize="12sp"
             android:fontFamily="@font/roboto_regular"

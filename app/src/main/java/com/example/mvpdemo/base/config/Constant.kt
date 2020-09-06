@@ -22,6 +22,11 @@ class Constant {
             return if (this.isNullOrEmpty()) return "null"
             else this
         }
+        fun String?.getValueOrDefaultZero():String{
+            return if (this.isNullOrEmpty()|| this=="null") return "0"
+            else this
+        }
+
         fun Int?.getValueOrDefaultZero():Int{
             return this ?: return 0
         }

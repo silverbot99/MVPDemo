@@ -7,7 +7,7 @@ interface CountryDetailContract {
         fun hideLoading()
         fun showToast(msg: String)
         fun showError(error: String)
-        fun showData(list: List<ItemCountriesDetailViewModel>)
+        fun showData(item: ItemCountriesDetailViewModel)
     }
     abstract class Presenter{
         abstract fun getData(date :String, country: String)
