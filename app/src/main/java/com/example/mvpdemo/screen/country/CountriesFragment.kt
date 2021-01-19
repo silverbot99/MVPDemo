@@ -43,6 +43,7 @@ class CountriesFragment: Fragment(), CountriesContract.CountriesView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         recyclerView = view.findViewById(R.id.rvCountry)
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter.registerRenderer(CountriesViewRenderer(ItemCountryViewModel::class.java, onNotifyData))
