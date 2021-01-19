@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-//    private val tvMessage = this.findViewById<TextView>(R.id.tvMessage)
+    //    private val tvMessage = this.findViewById<TextView>(R.id.tvMessage)
 //    private val tvStatus = this.findViewById<TextView>(R.id.tvStatus)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

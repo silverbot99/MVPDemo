@@ -12,5 +12,12 @@
     <color name="color_59B3D0">#59B3D0</color>
     <color name="color_924CD3">#924CD3</color>
     <color name="color_D3D3D3">#D3D3D3</color>
+    <color name="color_F8F8FF">#F8F8FF</color>
+    <color name="color_E9E9FF">#E9E9FF</color>
+    <color name="color_7777FF">#7777FF</color>
+    <color name="color_ADB9CA">#ADB9CA</color>
+    <color name="color_E9E9E9">#E9E9E9</color>
+    <color name="color_4B4A50">#4B4A50</color>
+    <color name="color_F4F4FF">#F4F4FF</color>
 
 </resources>

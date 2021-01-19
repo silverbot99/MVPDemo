@@ -34,7 +34,6 @@ class CountryDetailPresenter(val view: CountryDetailContract.CountryDetailView):
 
             historyObserver.subscribeWith(object :Observer<HistoryResponse>{
                 override fun onComplete() {
-                    view.showToast("Finished")
                 }
 
                 override fun onSubscribe(d: Disposable) {
@@ -55,20 +54,21 @@ class CountryDetailPresenter(val view: CountryDetailContract.CountryDetailView):
             view.showToast("Null client")
         }
     }
-    private fun mapData(response: HistoryResponse): List<ItemCountriesDetailViewModel> {
-        val listReturn = mutableListOf<ItemCountriesDetailViewModel>()
+    private fun mapData(response: HistoryResponse): ItemCountriesDetailViewModel {
         if (!response.response.isNullOrEmpty()){
-            response.response.forEach {
-                listReturn.add(ItemCountriesDetailViewModel(
+            response.response.last().let {
+                return ItemCountriesDetailViewModel(
+                    totalCase = it.cases.total.getValueOrDefaultZero(),
                     newCase = it.cases.new.getValueOrDefaultNull(),
                     date = it.day.getValueOrDefaultNull(),
                     recovered = it.cases.recovered.getValueOrDefaultZero(),
                     critical = it.cases.critical.getValueOrDefaultZero(),
-                    deaths = it.deaths.new.getValueOrDefaultNull()
-                ))
+                    deaths = it.deaths.new.getValueOrDefaultNull(),
+                    population = it.population.getValueOrDefaultZero()
+                )
             }
         }
-        return listReturn
+        return ItemCountriesDetailViewModel()
     }
 
 }

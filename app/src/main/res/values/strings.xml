@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">MVPDemo</string>
+    <string name="app_name">Covid Tracking</string>
     <string name="menu_dashboard">Thống kê</string>
     <string name="menu_countries">Đất nước</string>
     <string name="menu_history">Lịch sử</string>
     <string name="text_statistics">Thống kê</string>
     <string name="text_list_countries">Danh sách quốc gia</string>
     <string name="text_history">Lịch sử</string>
+    <string name="text_title_news">Tin tức</string>
 </resources>
